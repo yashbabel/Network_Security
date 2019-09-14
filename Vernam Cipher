@@ -1,0 +1,65 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vernam_cipher;
+
+import static java.lang.Math.random;
+import static java.lang.StrictMath.random;
+import java.util.Random;
+
+
+
+/**
+ *
+ * @author Yash
+ */
+public class Vernam_Cipher {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Random random=new Random();
+       String str="HOW ARE YOU ATUL"; //your plain text
+       str=str.replaceAll("\\s+","");
+       //to generate random key of same length as of plaintext
+       String ALPHABET="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+       char key[]=new char[str.length()];
+       int arr[]=new int[str.length()];
+       for(int i=0;i<str.length();i++)
+       {
+        key[i]=(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
+       }
+       
+       //print key and PlainText
+       for(int i=0;i<str.length();i++)
+       {
+        System.out.println(key[i]);
+       }
+       System.out.println(str);
+       
+       for(int i=0;i<key.length;i++)
+       {
+          System.out.println((int)str.charAt(i)%65+" "+(int)key[i]%65);
+          arr[i]=(int)str.charAt(i)%65+(int)key[i]%65;
+          
+          if(arr[i]>25)
+          {
+              arr[i]=arr[i]-26;
+          }
+          System.out.println(arr[i]);
+       }
+       for(int i=0;i<key.length;i++)
+       {
+           char ch=(char)(arr[i]+65);
+           System.out.print(ch);
+       }
+       
+       
+                
+       
+    }
+    
+}
