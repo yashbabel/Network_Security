@@ -1,0 +1,147 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package prac_cipher;
+
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
+
+/**
+ *
+ * @author Yash
+ */
+public class Prac_Cipher {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) 
+    {
+        int flag=1;
+        char[][] matt=new char[5][5];
+        StringBuffer key=new StringBuffer("PLAYFAIR");
+        String key1=key.reverse().toString();
+        key1=key1.replaceAll("\\s+","");
+        key1=key1.replaceAll("(.)(?=.*\\1)","");
+        key=new StringBuffer(key1).reverse();
+        System.out.println(key);
+        for (int i=65;i<91;i++)
+        {  
+            flag=1;
+            char ch=(char)i;
+            if (i=='J')
+            {
+                continue;
+            }
+            for (int j=0;j<=key.length()-1;j++)
+            {
+                if (ch==key.charAt(j))
+                { 
+                   flag=0;
+                   break;         
+                }
+            }
+            if (flag==1)
+            {
+                key.append(ch);
+            }
+            
+        }
+        int c=0;
+        System.out.println(key);
+        for(int i=0;i<5;i++)
+        {
+            for (int j=0;j<5;j++)
+            {
+                if(c<25){
+                matt[i][j]=key.charAt(c);
+                c++;}
+            }
+        }
+        for(int i=0;i<5;i++)
+        {
+            for (int j=0;j<5;j++)
+            {
+                System.out.print(matt[i][j]);
+            }
+            System.out.println();
+        }
+        StringBuffer plntext=new StringBuffer("WHPEKYJFYYUYYYYYFILKMAN");
+        
+        for(int i=0;i<plntext.length()-1;i=i+2)
+        {
+            char ch1=plntext.charAt(i);
+            char ch2=plntext.charAt(i+1);
+            if (ch1==ch2)
+            {
+                plntext.insert(i+1,'X');
+            }
+            
+        }
+        if(plntext.length()%2!=0)
+        {
+            plntext=plntext.insert(plntext.length(),'X');
+
+        }
+         
+        StringBuffer ciphtxt=new StringBuffer();
+        int r1=0,c1=0,r2=0,c2=0;
+        for(int i=0;i<plntext.length();i=i+2)
+        {
+            char ch1=plntext.charAt(i);
+            char ch2=plntext.charAt(i+1);
+           if(ch1=='J')
+            {ch1='I';                
+            }
+            if(ch2=='J') 
+            {ch2='I';
+            }
+            for(int j=0;j<5;j++)
+            {   
+                
+                for (int k=0;k<5;k++)
+                {
+                   if (matt[j][k]==ch1)
+                   {
+                       r1=j;
+                       c1=k;
+                   }
+                   if (matt[j][k]==ch2)
+                   {
+                       r2=j;
+                       c2=k;
+                   }
+                   
+                }
+            }
+                if (r1==r2)
+                {
+                    ciphtxt.append(matt[r1][(c1+1)%5]);
+                    ciphtxt.append(matt[r2][(c2+1)%5]);
+                    
+                    
+                }
+                else if(c1==c2)
+                {
+                    ciphtxt.append(matt[(r1+1)%5][c1]);
+                    ciphtxt.append(matt[(r2+1)%5][c2]);
+                }
+                else
+                {
+                    ciphtxt.append(matt[r1][c2]);
+                    ciphtxt.append(matt[r2][c1]);
+                    
+                }
+                
+            }
+            
+        
+        System.out.print(ciphtxt);
+        
+        
+        
+    }
+    
+}
