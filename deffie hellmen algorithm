@@ -1,0 +1,76 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package deffie_hellman;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
+/**
+ *
+ * @author Yash
+ */
+public class Deffie_hellman {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        byte[] b=new byte[20];
+        SecureRandom random=new SecureRandom();
+        random.nextBytes(b);
+        BigInteger n,g,A,B,x,y;
+        n=new BigInteger(5,100,random);
+        g=new BigInteger(5,100,random);
+        while(true)
+        {
+            if (n.equals(g))
+            {
+            n=new BigInteger(5,100,random);
+            g=new BigInteger(5,100,random);
+            }
+            else 
+            {
+                break;
+            }
+        }
+        System.out.println("n="+n);
+        System.out.println("g="+g);
+        x=new BigInteger(4,100,random);
+        y=new BigInteger(4,100,random);
+        while (true)
+        {
+            if(x.equals(y))
+            {
+                x=new BigInteger(4,100,random);
+                y=new BigInteger(4,100,random);
+            }
+            else if(x.equals(BigInteger.ZERO))
+            {
+                x=new BigInteger(4,100,random);
+                
+            }
+            else if(y.equals(BigInteger.ZERO))
+            {
+                y=new BigInteger(4,100,random);
+            }
+            else
+            {
+                break;
+            }
+        }
+        System.out.println("x="+x);
+        System.out.println("y="+y);
+        A=g.pow(x.intValue());
+        B=g.pow(y.intValue());
+        BigInteger k1=(B.pow(x.intValue())).mod(n);
+        BigInteger k2=(A.pow(y.intValue())).mod(n);
+        System.out.println(k1+" "+k2);
+        
+        
+        
+    }
+    
+}
