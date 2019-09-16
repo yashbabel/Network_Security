@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package md_receive;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+/**
+ *
+ * @author Yash
+ */
+public class MD_receive {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, IOException, ClassNotFoundException {
+        FileInputStream fis=new FileInputStream("C:\\Users\\Yash\\Documents\\NetBeansProjects\\MD_send\\test.txt");
+        ObjectInputStream ois=new ObjectInputStream(fis);
+        MessageDigest md=MessageDigest.getInstance("MD5");
+        Object o=ois.readObject();
+        if(!(o instanceof String))
+        {
+            System.exit(-1);
+        }
+        String data=(String)o;
+        System.out.print(data);
+        o=ois.readObject();
+        if (!(o instanceof byte[]))
+        {
+            System.exit(-1);
+            
+        }
+        byte[] b=(byte[])o;
+        md.update(data.getBytes());
+        if (MessageDigest.isEqual(md.digest(), b))
+        {
+            System.out.println("Voilaa");
+        }
+        
+        
+        
+        
+        
+               
+    }
+    
+}
