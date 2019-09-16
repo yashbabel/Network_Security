@@ -1,33 +1,57 @@
- public static void main(String[] args) 
-    {
-        String str="How are you atul";
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package transpositional_cipher;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Yash
+ */
+public class Transpositional_cipher {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter your string");
+        String str=sc.nextLine();
         str=str.replaceAll("\\s+","");
-        char ciph[][]=new char[3][str.length()];
+        System.out.println("Enter your Key Value");
+        int key=sc.nextInt();
+        char matt[][]=new char[key][str.length()];
         int c=0;
         while(c<str.length())
         {
-            for(int i=0;i<3;i++)
-            {
-                if (c<str.length()){
-                ciph[i][c]=str.charAt(c);
-                c++;}
-            }
-            for(int i=3-2;i>0;i--)
+            for(int i=0;i<key;i++)
             {
                 if(c<str.length())
                 {
-                ciph[i][c]=str.charAt(c);
+                matt[i][c]=str.charAt(c);
                 c++;
                 }
             }
+            for(int i=key-2;i>0;i--)
+            {
+                if(c<str.length())
+                {
+                matt[i][c]=str.charAt(c);
+                c++;
+                }   
+            }
+            
         }
-        for (int i=0;i<3;i++)
+        for(int i=0;i<key;i++)
         {
             for(int j=0;j<str.length();j++)
             {
-                System.out.print(ciph[i][j]);
+                System.out.print(matt[i][j]);
             }
+            System.out.print("\t");
         }
-        
-        
     }
+}
