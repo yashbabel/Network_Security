@@ -1,0 +1,91 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package prac_cipher;
+
+import java.io.IOException;
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
+import java.math.BigInteger;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
+/**
+ *
+ * @author Yash
+ */
+public class Prac_Cipher {
+
+    /**
+     * @param args the command line arguments
+     */
+     public static  String enc(String plain, int e, BigInteger n)
+     {
+         String ciph="",str;
+         int c1;
+         
+         for (int i=0;i<plain.length();i++)
+         {
+             c1=(int)plain.charAt(i);
+             str=""+c1;
+             BigInteger il=new BigInteger(str);
+             BigInteger pln=il.pow(e).mod(n);
+             ciph=ciph+(char)pln.intValue();
+             
+         }
+         return ciph;
+     }
+     public static String dec(String ciph,int d,BigInteger n)
+     {
+         int c1;
+         
+         String str, plnt="";
+         for(int i=0;i<ciph.length();i++)
+         {
+             c1=(int)ciph.charAt(i);
+             str=""+c1;
+             BigInteger big=new BigInteger(str);
+             BigInteger pln=big.pow(d).mod(n);
+             plnt=plnt+(char)pln.intValue();
+             
+         }return plnt;
+     }
+    
+    public static void main(String[] args) 
+    {
+        SecureRandom random=new SecureRandom();
+        byte[] b=new byte[20];
+        random.nextBytes(b);
+        BigInteger p,q,n,m,e,d;
+        p=new BigInteger(5,100,random);
+        q=new BigInteger(5,100,random);
+        n=p.multiply(q);
+        m=p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+        e=new BigInteger("3");
+        while(m.gcd(e).intValue()!=1)
+        {
+            e=e.add(new BigInteger("2"));
+            
+        }
+        d=e.modInverse(m);
+        System.out.print(p+" "+q+" "+n+" "+m+" "+e);
+       
+       String x=enc("welcome",e.intValue(),n);
+       System.out.print(x);
+       System.out.print(dec(x,d.intValue(),n));
+       
+        
+        
+        
+    }
+    
+    
+}
