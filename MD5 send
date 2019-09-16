@@ -1,0 +1,40 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package md_send;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.security.MessageDigest;
+
+/**
+ *
+ * @author Yash
+ */
+public class MD_send {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+    try
+    {
+         FileOutputStream fos=new FileOutputStream("test.txt");
+         ObjectOutputStream oos=new ObjectOutputStream(fos);
+         MessageDigest md=MessageDigest.getInstance("MD5");
+         String data="Welcome to the world of cryptography";
+         byte b[]=data.getBytes();
+         md.update(b);
+         oos.writeObject(data);
+         oos.writeObject(md.digest());
+    }
+    catch(Exception e)
+    {
+        e.printStackTrace();
+    }
+    
+}
+}
