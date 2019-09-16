@@ -1,0 +1,33 @@
+ public static void main(String[] args) 
+    {
+        String str="How are you atul";
+        str=str.replaceAll("\\s+","");
+        char ciph[][]=new char[3][str.length()];
+        int c=0;
+        while(c<str.length())
+        {
+            for(int i=0;i<3;i++)
+            {
+                if (c<str.length()){
+                ciph[i][c]=str.charAt(c);
+                c++;}
+            }
+            for(int i=3-2;i>0;i--)
+            {
+                if(c<str.length())
+                {
+                ciph[i][c]=str.charAt(c);
+                c++;
+                }
+            }
+        }
+        for (int i=0;i<3;i++)
+        {
+            for(int j=0;j<str.length();j++)
+            {
+                System.out.print(ciph[i][j]);
+            }
+        }
+        
+        
+    }
